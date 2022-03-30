@@ -58,18 +58,17 @@ void show_board(vector<vector<int>> &board){
     rep(j,board_size){
       switch(board[i][j]){
         case WHITE:
-          cout << 'W';
+          cout << '@';
           break;
         case BLACK:
-          cout << 'B';
+          cout << '#';
           break;
         case EMPTY:
-          cout << '-';
+          cout << '.';
           break;
         default:
           break;
       }
-      cout<<" ";
     }
     cout << endl;
   }
@@ -160,24 +159,18 @@ int main(){
   int ansx = 1;
   int ansy = 1;
   while(true){
-    int max_eval = -100100;
     vector<vector<int>> field(board_size,vector<int>(board_size,0));
     //値を受け取りボードの初期化を行う。
     reset_board(field);
     //TがPLACEじゃなかった場合以下の処理は行わない
     if(enable){
-      //show_board()を用いて現在の盤面を確認する
-      int eval = 0;
+      int max_eval = -100100;
       rep(i,board_size){
         rep(j,board_size){
           vector<vector<int>> copy_field = field;
           if(can_put(i,j,copy_field)&&copy_field[i][j]==EMPTY){
             put(i,j,copy_field);
-            eval = evaluate(copy_field);
-            cout<<i<<" "<<j<<endl;
-            cout<<eval<<endl;
-            show_board(copy_field);
-
+            int eval = evaluate(copy_field);
             if(eval>max_eval){
               ansx=j+1;
               ansy=i+1;
@@ -187,6 +180,9 @@ int main(){
         }
       }
     }
+    vector<vector<int>> copy_field = field;
+    put(ansy-1,ansx-1,copy_field);
     cout<<ansx<<" "<<ansy<<endl;
+    show_board(copy_field);
   }
 }
