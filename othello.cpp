@@ -3,11 +3,9 @@ using namespace std;
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
 #define all(x) (x).begin(),(x).end()
 /*大事なこと
-  自分のコマの色は白(@)
-  白の値は1
+  自分のコマの色は白(#)
   */
 //定数を決める
-//無限
 int inf = 2147483647;
 //マスの状態
 const int EMPTY = -1;  //空きマス
@@ -15,8 +13,8 @@ const int WHITE = 1; // 白石
 const int BLACK = 0;  // 黒石
 const int board_size = 8;//盤面のサイズ
 //向きを表す
-const vector<int> dy = {-1,-1,0,1,1,-1,0,-1};
-const vector<int> dx = {0,1,1,1,0,-1,-1,-1};
+const vector<int> dy = {1,1,1,0,-1,-1,-1,0,1};
+const vector<int> dx = {-1,0,1,1,1,0,-1,-1,0};
 //マスの評価を計算する為の配列
 vector<vector<int>> weight={
   {30, -12, 0, -1, -1, 0, -12, 30},
@@ -101,7 +99,7 @@ bool check_d(int y,int x,int d,vector<vector<int>> &board){
       continue;
     }
     if (flag) break;
-    return false;
+    else return false;
   }
   return true;
 }
@@ -171,21 +169,23 @@ int main(){
       rep(i,board_size){
         rep(j,board_size){
           vector<vector<int>> copy_field = field;
-          if(can_put(i,j,copy_field)&&copy_field[i][j]==EMPTY){
+          if(can_put(i,j,copy_field)&&field[i][j]==EMPTY){
+            //cout<<i<<" "<<j<<endl;
             put(i,j,copy_field);
+            //show_board(copy_field);
             int eval = evaluate(copy_field);
             if(eval>max_eval){
-              ansx=j+1;
-              ansy=i+1;
+              ansx=i+1;
+              ansy=j+1;
               max_eval=eval;
             }
           }
         }
       }
-    vector<vector<int>> copy_field = field;
-    //put(ansy-1,ansx-1,copy_field);
-    cout<<ansx<<" "<<ansy<<endl;
+    //vector<vector<int>> copy_field = field;
+    //put(ansx-1,ansy-1,copy_field);
     //show_board(copy_field);
+    cout<<ansx<<" "<<ansy<<endl;
     }
   }
 }
