@@ -181,8 +181,8 @@ int main(){
       }
     }
     vector<vector<int>> copy_field = field;
-    put(ansy-1,ansx-1,copy_field);
+    //put(ansy-1,ansx-1,copy_field);
     cout<<ansx<<" "<<ansy<<endl;
-    show_board(copy_field);
+    //show_board(copy_field);
   }
 }
