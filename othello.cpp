@@ -37,15 +37,18 @@ void reset_board(vector<vector<int>> &board){
   string t;
   cin >> t;
   if (t=="PLACE")enable=true;
-  else return;
+  else {
+    enable=false;
+    return;
+  }
   rep(i,board_size){
     string s;
     cin >> s;
     rep(j,board_size){
       if (s.at(j) == '#'){
-        board[i][j] = BLACK;
-      }else if (s.at(j) == '@'){
         board[i][j] = WHITE;
+      }else if (s.at(j) == '@'){
+        board[i][j] = BLACK;
       }else if (s.at(j) == '.'){
         board[i][j] = EMPTY;
       }
@@ -58,10 +61,10 @@ void show_board(vector<vector<int>> &board){
     rep(j,board_size){
       switch(board[i][j]){
         case WHITE:
-          cout << '@';
+          cout << '#';
           break;
         case BLACK:
-          cout << '#';
+          cout << '@';
           break;
         case EMPTY:
           cout << '.';
@@ -179,10 +182,10 @@ int main(){
           }
         }
       }
-    }
     vector<vector<int>> copy_field = field;
     //put(ansy-1,ansx-1,copy_field);
     cout<<ansx<<" "<<ansy<<endl;
     //show_board(copy_field);
+    }
   }
 }
